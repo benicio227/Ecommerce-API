@@ -8,12 +8,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copiar os arquivos do projeto e restaurar dependências
-COPY ["EcommerceAPI/*.csproj", "./"]
+COPY ["EcommerceAPI/EcommerceAPI.csproj", "EcommerceAPI/"]
+WORKDIR "/src/EcommerceAPI"
 RUN dotnet restore
 
 # Copiar todo o código restante e compilar o projeto
 COPY . .
-WORKDIR "/src/EcommerceAPI"
 RUN dotnet build -c Release -o /app/build
 
 # Etapa 3: Publicação do projeto
@@ -29,3 +29,4 @@ COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://+:8080
 
 ENTRYPOINT ["dotnet", "EcommerceAPI.dll"]
+
