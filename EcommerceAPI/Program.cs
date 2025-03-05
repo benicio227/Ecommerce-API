@@ -25,6 +25,7 @@ builder.Services.AddDbContext<EcommerceDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 39)),
         b => b.MigrationsAssembly("EcommerceAPI.Infrastructure")
+             .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)
     )
 );
 
