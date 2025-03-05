@@ -1,7 +1,7 @@
 # Etapa 1: Imagem base com o runtime do .NET 8
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080  # Alterado para 8080, pois o Railway pode exigir essa porta
 
 # Etapa 2: Imagem do SDK do .NET 8 para compilar a aplicação
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -20,4 +20,8 @@ RUN dotnet publish "EcommerceAPI.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Configura a porta corretamente para Railway
+ENV ASPNETCORE_URLS=http://+:8080
+
 ENTRYPOINT ["dotnet", "EcommerceAPI.dll"]
