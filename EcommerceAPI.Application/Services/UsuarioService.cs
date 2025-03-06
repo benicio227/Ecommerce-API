@@ -41,7 +41,7 @@ public class UsuarioService : IUsuarioService
             throw new KeyNotFoundException("Usuário não encontrado.");
         }
 
-        usuarioExistente.Nome = usuario.Nome;
+        usuarioExistente.Name = usuario.Name;
         usuarioExistente.Email = usuario.Email;
         usuarioExistente.SenhaHash = usuario.SenhaHash;
         usuarioExistente.Perfil = usuario.Perfil;
