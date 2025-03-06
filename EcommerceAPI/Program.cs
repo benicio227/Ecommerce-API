@@ -20,6 +20,10 @@ builder.Services.AddValidatorsFromAssemblyContaining<CarrinhoCreateDtoValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<CarrinhoItemCreateDtoValidator>();
 
 
+
+var connectionString = Environment.GetEnvironmentVariable("MYSQL_URL");
+
+
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
