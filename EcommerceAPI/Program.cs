@@ -26,8 +26,8 @@ var connectionString = Environment.GetEnvironmentVariable("MYSQL_URL");
 
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 39)),
+        connectionString,
+        new MySqlServerVersion(new Version(9, 2, 0)),
         b => b.MigrationsAssembly("EcommerceAPI.Infrastructure")
              .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)
     )
@@ -36,9 +36,9 @@ builder.Services.AddDbContext<EcommerceDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddDbContext<EcommerceDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 39))));
+//builder.Services.AddDbContext<EcommerceDbContext>(options =>
+//    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+//        new MySqlServerVersion(new Version(8, 0, 39))));
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
