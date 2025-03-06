@@ -23,11 +23,16 @@ builder.Services.AddValidatorsFromAssemblyContaining<CarrinhoItemCreateDtoValida
 
 var connectionString = Environment.GetEnvironmentVariable("MYSQL_URL");
 
+if (string.IsNullOrEmpty(connectionString))
+{
+    // Se a variável de ambiente não estiver definida, usa o valor de "DefaultConnection" do appsettings.json
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
 
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
     options.UseMySql(
         connectionString,
-        new MySqlServerVersion(new Version(9, 2, 0)),
+        new MySqlServerVersion(new Version(8, 0, 39)),
         b => b.MigrationsAssembly("EcommerceAPI.Infrastructure")
              .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)
     )
