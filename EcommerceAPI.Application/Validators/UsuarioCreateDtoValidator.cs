@@ -6,7 +6,7 @@ public class UsuarioCreateDtoValidator : AbstractValidator<UsuarioCreateDto>
 {
     public UsuarioCreateDtoValidator()
     {
-        RuleFor(usuario => usuario.Nome)
+        RuleFor(usuario => usuario.Name)
             .NotEmpty().WithMessage("O nome é obrigatório")
             .MaximumLength(100).WithMessage("O nome deve ter no máximo 100 caractéres");
 
