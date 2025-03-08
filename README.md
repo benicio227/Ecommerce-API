@@ -23,6 +23,11 @@ Para obter uma cópia local funcionando, siga estes passos simples.
 - Windows 10+ ou Linux/MacOS com [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) instalado
 - MySql Server
 
+### Construído com
+
+![.NET Badge](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=fff&style=for-the-badge)  ![badge-windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) ![visual-studio](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white) ![badge-mysql](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+![badge-swagger](http://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=000&style=for-the-badge)  
+
 ### Instalação
 
 1. Clone o repositório:
@@ -33,7 +38,9 @@ Para obter uma cópia local funcionando, siga estes passos simples.
 2. Preencha as informações no arquivo `appsettings.json`
 3. Execute a API
 
-### Construído com
+## 📞 Contato
 
-![.NET Badge](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=fff&style=for-the-badge)  ![badge-windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) ![visual-studio](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white) ![badge-mysql](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
-![badge-swagger](http://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=000&style=for-the-badge)  
+Se tiver interesse em saber mais sobre o projeto ou entrar em contato comigo, fique à vontade!
+- 💼 LinkedIn: Benício Brandão
+- 📧 E-mail: beniciobrandao@hotmail.com
+- 🐙 GitHub: benicio227
