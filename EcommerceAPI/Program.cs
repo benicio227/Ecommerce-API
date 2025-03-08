@@ -20,14 +20,24 @@ builder.Services.AddValidatorsFromAssemblyContaining<CarrinhoCreateDtoValidator>
 builder.Services.AddValidatorsFromAssemblyContaining<CarrinhoItemCreateDtoValidator>();
 
 
+var environment = builder.Environment.EnvironmentName;
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-var connectionString = Environment.GetEnvironmentVariable("MYSQL_URL");
-
-if (string.IsNullOrEmpty(connectionString))
+if (environment == "Development")
 {
-    // Se a variável de ambiente não estiver definida, usa o valor de "DefaultConnection" do appsettings.json
+    // Se estiver rodando local, tenta pegar da variável de ambientte local
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 }
+else
+{
+    // Se estiver rodando no Railway, tenta pegar da variável de ambiente
+    var railwayConnection = Environment.GetEnvironmentVariable("MYSQL_URL");
+    if (!string.IsNullOrEmpty(railwayConnection))
+    {
+        connectionString = railwayConnection;
+    }
+}
+
 
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
     options.UseMySql(

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -13,10 +14,8 @@ namespace EcommerceAPI.Migrations
                 name: "Id",
                 table: "Usuarios",
                 type: "int",
-                nullable: false,
-                defaultValueSql: "AUTO_INCREMENT", // MySQL syntax para auto-incremento
-                oldClrType: typeof(int),
-                oldType: "int");
+                nullable: false)
+                .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -26,9 +25,8 @@ namespace EcommerceAPI.Migrations
                 name: "Id",
                 table: "Usuarios",
                 type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int");
+                nullable: false)
+                .OldAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
         }
     }
 }
