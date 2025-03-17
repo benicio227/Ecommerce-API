@@ -5,7 +5,7 @@ using FluentValidation.TestHelper;
 
 namespace EcommerceAPI.Tests.Validators;
 public class UsuarioCreateDtoValidatorTests
-// Essa pasta de Validators vai garantir que os dados enviados no DTO UsuarioCreateDto são válidos
+
 {
     private readonly UsuarioCreateDtoValidator _validator;
 
@@ -136,9 +136,9 @@ public class UsuarioCreateDtoValidatorTests
     }
 
     [Theory]
-    [InlineData("123456")]
-    [InlineData("abcdefg")]
-    [InlineData("senhaForte123")]
+    [InlineData("Bb@12345678")]
+    [InlineData("Senha@2025")]
+ 
     public void Deve_Passar_Quando_Senha_For_Valida(string senhaValida)
     {
         var dto = new UsuarioCreateDto
@@ -180,9 +180,8 @@ public class UsuarioCreateDtoValidatorTests
 
     [Theory]
     [InlineData("123")]
-    [InlineData("abc")]
     [InlineData("12345")] 
-    public void Deve_Falhar_Quando_Senha_Tiver_Menos_De_6_Caracteres(string senhaCurta)
+    public void Deve_Falhar_Quando_Senha_Tiver_Menos_De_8_Caracteres(string senhaCurta)
     {
       
         var dto = new UsuarioCreateDto
@@ -198,7 +197,79 @@ public class UsuarioCreateDtoValidatorTests
         var result = _validator.TestValidate(dto);
 
         
-        result.ShouldHaveValidationErrorFor(u => u.Senha)
-            .WithErrorMessage("A senha deve ter no mínimo 6 caracteres");
+        result.ShouldHaveValidationErrorFor(usuario => usuario.Senha)
+            .WithErrorMessage("A senha deve ter no mínimo 8 caracteres");
+    }
+
+    [Fact]
+    public void Deve_Falhar_Quando_Senha_Nao_Tiver_Ao_Menos_Uma_Letra_Maiuscula()
+    {
+        var dto = new UsuarioCreateDto
+        {
+            Name = "João",
+            Email = "joao@email.com",
+            Senha = "20100119@b",
+            Perfil = Domain.Enums.PerfilUsuario.Cliente,
+            Telefone = "1223344556"
+        };
+
+        var result = _validator.TestValidate(dto);
+
+        result.ShouldHaveValidationErrorFor(usuario => usuario.Senha)
+            .WithErrorMessage("A senha deve conter pelo menos uma letra maiúscula");
+    }
+
+    [Fact]
+    public void Deve_Falhar_Quando_Senha_Nao_Tiver_Ao_Menos_Uma_Letra_Minuscula()
+    {
+        var dto = new UsuarioCreateDto
+        {
+            Name = "João",
+            Email = "joao@email.com",
+            Senha = "20100119@B",
+            Perfil = Domain.Enums.PerfilUsuario.Cliente,
+            Telefone = "12345678910"
+        };
+
+        var result = _validator.TestValidate(dto);
+
+        result.ShouldHaveValidationErrorFor(usuario => usuario.Senha)
+            .WithErrorMessage("A senha deve conter pelo menos uma letra minúscula");
+    }
+
+    [Fact]
+    public void Deve_Falhar_Quando_Senha_Nao_Tiver_Ao_Menos_Um_Numero()
+    {
+        var dto = new UsuarioCreateDto
+        {
+            Name = "João",
+            Email = "joao@email.com",
+            Senha = "MinhaSenha@",
+            Perfil = Domain.Enums.PerfilUsuario.Cliente,
+            Telefone = "12345678910"
+        };
+
+        var result = _validator.TestValidate(dto);
+
+        result.ShouldHaveValidationErrorFor(usuario => usuario.Senha)
+            .WithErrorMessage("A senha deve conter pelo menos um número");
+    }
+
+    [Fact]
+    public void Deve_Falhar_Quando_Senha_Nao_Tiver_Ao_Menos_Um_Caractere_Especial()
+    {
+        var dto = new UsuarioCreateDto
+        {
+            Name = "João",
+            Email = "joao@email.com",
+            Senha = "MinhaSenha123",
+            Perfil = Domain.Enums.PerfilUsuario.Cliente,
+            Telefone = "12345678910"
+        };
+
+        var result = _validator.TestValidate(dto);
+
+        result.ShouldHaveValidationErrorFor(usuario => usuario.Senha)
+            .WithErrorMessage("A senha deve conter pelo menos um caractere especial");
     }
 }
