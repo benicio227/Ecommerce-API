@@ -1,6 +1,7 @@
 ﻿using EcommerceAPI.DTOs;
 using FluentValidation;
 
+
 namespace EcommerceAPI.Application.Validators;
 public class ProdutoCreateDtoValidator : AbstractValidator<ProdutoCreateDto>
 {
