@@ -1,4 +1,5 @@
-﻿using EcommerceAPI.Domain.Entities;
+﻿using BCrypt.Net;
+using EcommerceAPI.Domain.Entities;
 using EcommerceAPI.Repositories;
 
 namespace EcommerceAPI.Application.Services;
@@ -30,6 +31,10 @@ public class UsuarioService : IUsuarioService
 
     public async Task<Usuario?> CriarUsuario(Usuario usuario)
     {
+        var senhaHash = BCrypt.Net.BCrypt.HashPassword(usuario.SenhaHash);
+
+        usuario.SenhaHash = senhaHash;
+
         return await _usuarioRepository.AdicionarUsuario(usuario);
     }
 
