@@ -9,7 +9,7 @@ public class UsuarioProfile : Profile
     {
         CreateMap<Usuario, UsuarioResponseDto>().ReverseMap();
         CreateMap<UsuarioCreateDto, Usuario>()
-            .ForMember(dest => dest.SenhaHash, opt => opt.MapFrom(src => src.Senha));
+            .ForMember(dest => dest.SenhaHash, opt => opt.MapFrom(src => src.SenhaHash));
         CreateMap<UsuarioUpdateDto, Usuario>()
                .ForMember(dest => dest.SenhaHash, opt => opt.MapFrom(src => src.Senha));
     }
