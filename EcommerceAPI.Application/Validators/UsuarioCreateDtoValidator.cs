@@ -14,7 +14,7 @@ public class UsuarioCreateDtoValidator : AbstractValidator<UsuarioCreateDto>
             .NotEmpty().WithMessage("O email é obrigatório")
             .EmailAddress().WithMessage("O e-mail informado não é válido");
 
-        RuleFor(usuario => usuario.Senha)
+        RuleFor(usuario => usuario.SenhaHash)
             .NotEmpty().WithMessage("A senha é obrigatória")
             .MinimumLength(8).WithMessage("A senha deve ter no mínimo 8 caracteres")
             .Matches("[A-Z]").WithMessage("A senha deve conter pelo menos uma letra maiúscula")
