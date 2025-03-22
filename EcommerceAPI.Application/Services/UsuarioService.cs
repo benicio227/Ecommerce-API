@@ -1,5 +1,7 @@
-﻿using EcommerceAPI.Domain.Entities;
+﻿using EcommerceAPI.Application.DTOs;
+using EcommerceAPI.Domain.Entities;
 using EcommerceAPI.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace EcommerceAPI.Application.Services;
 public class UsuarioService : IUsuarioService
@@ -63,4 +65,29 @@ public class UsuarioService : IUsuarioService
         return await _usuarioRepository.RemoverUsuarioPorId(id);
     }
 
+    public async Task<LoginResponseDto> LogarUsuario(RequestLoginDto loginDto)
+    {
+        var usuario = await _usuarioRepository.ObterUsuarioPorEmail(loginDto.Email);
+
+        if (usuario is null)
+        {
+            throw new KeyNotFoundException("Usuário não encontrado");
+        }
+
+        var senhaCorreta = BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.SenhaHash);
+
+        if (!senhaCorreta)
+        {
+            throw new UnauthorizedAccessException("Senha inválida");
+        }
+
+        var token = "token_fictício";
+
+        return new LoginResponseDto
+        {
+            Email = usuario.Email,
+            Nome = usuario.Name,
+            Token = token
+        };
+    }
 }
