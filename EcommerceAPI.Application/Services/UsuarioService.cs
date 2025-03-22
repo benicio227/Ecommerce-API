@@ -1,5 +1,4 @@
-﻿using BCrypt.Net;
-using EcommerceAPI.Domain.Entities;
+﻿using EcommerceAPI.Domain.Entities;
 using EcommerceAPI.Repositories;
 
 namespace EcommerceAPI.Application.Services;
