@@ -9,4 +9,5 @@ public interface IUsuarioRepository
     Task<Usuario?> AdicionarUsuario(Usuario usuario);
     Task<bool> SalvarAlteracoesUsuario(Usuario usuario);
     Task<bool> RemoverUsuarioPorId(int id);
+    Task<Usuario?> ObterUsuarioPorEmail(string email);
 }
