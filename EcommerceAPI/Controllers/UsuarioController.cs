@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using EcommerceAPI.Application.DTOs;
 using EcommerceAPI.Application.Services;
 using EcommerceAPI.Domain.Entities;
 using EcommerceAPI.DTOs;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceAPI.Controllers;
@@ -94,5 +96,24 @@ public class UsuarioController : ControllerBase
 
         await _usuarioService.DeletarUsuarioPorId(id);
         return NoContent();
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] RequestLoginDto loginDto)
+    {
+        try
+        {
+            var usuarioLogado = await _usuarioService.LogarUsuario(loginDto);
+
+            return Ok(usuarioLogado);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound("Usuário não encontrado");
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized("crendenciais inválidas");
+        }
     }
 }
