@@ -47,4 +47,10 @@ public class UsuarioRepository : IUsuarioRepository
         
     }
 
+    public async Task<Usuario?> ObterUsuarioPorEmail(string email)
+    {
+        var usuario = await _context.Usuarios.FirstOrDefaultAsync(usuario => usuario.Email == email);
+
+        return usuario;
+    }
 }
