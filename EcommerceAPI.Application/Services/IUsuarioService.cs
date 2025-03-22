@@ -1,4 +1,5 @@
-﻿using EcommerceAPI.Domain.Entities;
+﻿using EcommerceAPI.Application.DTOs;
+using EcommerceAPI.Domain.Entities;
 
 namespace EcommerceAPI.Application.Services;
 public interface IUsuarioService
@@ -8,4 +9,5 @@ public interface IUsuarioService
     Task<Usuario?> CriarUsuario(Usuario usuario);
     Task<bool> EditarUsuario(Usuario usuario);
     Task<bool> DeletarUsuarioPorId(int id);
+    Task<LoginResponseDto> LogarUsuario(RequestLoginDto loginDto);
 }
